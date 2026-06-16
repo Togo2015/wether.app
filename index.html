@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>天気×おでかけ提案</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🌤️ 今日のおでかけ提案</h1>
+
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="都市名を入力（例：Tokyo）">
+      <button onclick="getWeather()">検索</button>
+    </div>
+
+    <div id="weatherCard" class="hidden">
+      <h2 id="cityName"></h2>
+      <p id="weatherDesc"></p>
+      <p id="temperature"></p>
+      <p id="precipitation"></p>
+      <div id="suggestion" class="suggestion"></div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
