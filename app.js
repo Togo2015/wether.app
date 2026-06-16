@@ -1,3 +1,10 @@
+// Enterキーで検索できるようにする ← 関数の外に置く
+document.getElementById("cityInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    getWeather();
+  }
+});
+
 // 都市名→緯度経度変換 & 天気取得
 async function getWeather() {
   const city = document.getElementById("cityInput").value;
@@ -26,12 +33,6 @@ async function getWeather() {
   const tempMin = daily.temperature_2m_min[0];
   const precipitation = daily.precipitation_sum[0];
 
-  // Enterキーで検索できるようにする
-document.getElementById("cityInput").addEventListener("keydown", function(event) {
-  if (event.key === "Enter") {
-    getWeather();
-  }
-});
   // 3. 画面に表示
   document.getElementById("cityName").textContent = `📍 ${name}`;
   document.getElementById("temperature").textContent =
