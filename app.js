@@ -26,6 +26,12 @@ async function getWeather() {
   const tempMin = daily.temperature_2m_min[0];
   const precipitation = daily.precipitation_sum[0];
 
+  // Enterキーで検索できるようにする
+document.getElementById("cityInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    getWeather();
+  }
+});
   // 3. 画面に表示
   document.getElementById("cityName").textContent = `📍 ${name}`;
   document.getElementById("temperature").textContent =
