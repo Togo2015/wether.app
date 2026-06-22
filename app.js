@@ -1,11 +1,11 @@
-// Enterキーで検索できるようにする ← 関数の外に置く
+// Enterキーで検索
 document.getElementById("cityInput").addEventListener("keydown", function(event) {
   if (event.key === "Enter") {
     getWeather();
   }
 });
 
-// 都市名→緯度経度変換 & 天気取得
+// 都市名→緯度経度変換と天気取得
 async function getWeather() {
   const city = document.getElementById("cityInput").value;
   if (!city) return alert("都市名を入力してください");
@@ -19,7 +19,7 @@ async function getWeather() {
 
   const { latitude, longitude, name } = geoData.results[0];
 
-  // 2. 天気データ取得
+  //天気データ取得
   const weatherRes = await fetch(
     `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}` +
     `&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum` +
@@ -33,7 +33,7 @@ async function getWeather() {
   const tempMin = daily.temperature_2m_min[0];
   const precipitation = daily.precipitation_sum[0];
 
-  // 3. 画面に表示
+  // 画面に表示
   document.getElementById("cityName").textContent = `📍 ${name}`;
   document.getElementById("temperature").textContent =
     `🌡️ 最高 ${tempMax}℃ / 最低 ${tempMin}℃`;
@@ -47,7 +47,7 @@ async function getWeather() {
   document.getElementById("weatherCard").classList.remove("hidden");
 }
 
-// 天気コード→日本語ラベル
+// 天気→日本語
 function getWeatherLabel(code) {
   if (code === 0) return "☀️ 快晴";
   if (code <= 3) return "⛅ 曇りがち";
@@ -56,10 +56,10 @@ function getWeatherLabel(code) {
   return "⛈️ 荒天";
 }
 
-// おでかけ提案ロジック
+// おでかけ提案
 function getSuggestion(code, tempMax, precipitation) {
-  if (precipitation > 5) return "💧 雨が多いので室内がおすすめ！映画館や博物館はいかがですか？";
-  if (code === 0 && tempMax >= 20) return "🌳 絶好のおでかけ日和！公園やピクニックがおすすめです！";
-  if (tempMax < 10) return "🧥 寒いので温かい場所へ。カフェやショッピングモールがおすすめ！";
-  return "🚶 まずまずの天気です。軽い散歩やショッピングに出かけてみましょう！";
+  if (precipitation > 5) return " 雨が多いので室内がおすすめ！映画館や博物館はいかがですか？";
+  if (code === 0 && tempMax >= 20) return " 絶好のおでかけ日和！公園やピクニックがおすすめです！";
+  if (tempMax < 10) return " 寒いので温かい場所へ。カフェやショッピングモールがおすすめ！";
+  return " まずまずの天気です。軽い散歩やショッピングに出かけてみましょう！";
 }
